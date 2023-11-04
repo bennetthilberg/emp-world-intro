@@ -5,21 +5,37 @@
 #include "emp/tools/string_utils.hpp"
 
 class Organism {
-    private:
-        double points;
-        emp::Ptr<emp::Random> random;
+  private:
+    double points;
+    emp::Ptr<emp::Random> random;
 
-    public:
-    Organism(emp::Ptr<emp::Random> _random, double _points=0.0) :
-        points(_points), random(_random) {;}
+  public:
+    Organism(emp::Ptr<emp::Random> _random, double _points = 0.0)
+        : points(_points), random(_random) {
+        ;
+    }
 
-    void SetPoints(double _in) {points = _in;}
-    void AddPoints(double _in) {points += _in;}
-
+    void SetPoints(double _in) {
+        points = _in;
+    }
+    void AddPoints(double _in) {
+        points += _in;
+    }
 
     void Process() {
-        std::cout << "Processing" << std::endl; //feel free to get rid of this
-       
+        std::cout << "Processing" << std::endl; 
+        points += 100;
+    }
+    emp::Ptr<Organism> CheckReproduction() {
+        std::cout << "Checking reproduction" << std::endl;
+        if (points > 1000) {
+            std::cout << "Reproducing" << std::endl;
+            emp::Ptr<Organism> offspring = new Organism(*this);
+            offspring->SetPoints(0);
+            points = 0;
+            return offspring;
+        }
+        return nullptr;
     }
 };
 #endif
