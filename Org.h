@@ -11,7 +11,8 @@ class Organism {
     int species;
 
   public:
-    Organism(emp::Ptr<emp::Random> _random, double _points = 0.0, int _species = 0)
+    Organism(emp::Ptr<emp::Random> _random, double _points = 0.0,
+             int _species = 0)
         : points(_points), random(_random) {
         species = _species;
     }
@@ -25,9 +26,11 @@ class Organism {
     int GetSpecies() {
         return species;
     }
-    void Process() {
+    void Process(bool doIHaveCompany) {
         std::cout << "Processing" << std::endl;
-        points += 100;
+        if(!doIHaveCompany){
+            points += 50;
+        }
     }
     emp::Ptr<Organism> CheckReproduction() {
         std::cout << "Checking reproduction" << std::endl;

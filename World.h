@@ -29,11 +29,16 @@ class OrgWorld : public emp::World<Organism> {
                 continue;
             }
             if (pop[i]) {
-                pop[i]->Process();
+                // Check if there are neighboring orgs at the org's position
+                bool doesOrgHaveCompany = false;
+                if(GetValidNeighborOrgIDs(i).size() > 0){
+                    doesOrgHaveCompany = true;
+                }
+                pop[i]->Process(doesOrgHaveCompany);
                 MoveOrganism(i);
             }
         }
-        /* Reproduction off for testing
+        
         emp::vector<size_t> reproductionSchedule = emp::GetPermutation(random,
         GetSize()); for(int i : reproductionSchedule){ if(!pop[i] ||
         !IsOccupied(i)){ continue;
@@ -43,7 +48,7 @@ class OrgWorld : public emp::World<Organism> {
                 DoBirth(*offspring, i);
             }
         }
-        */
+        
         std::cout << "Update done" << std::endl;
     }
     emp::Ptr<Organism> ExtractOrganism(int i) {

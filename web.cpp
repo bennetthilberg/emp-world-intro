@@ -3,6 +3,7 @@
 #include "World.h"
 #include "emp/math/Random.hpp"
 #include "emp/web/Animate.hpp"
+#include <vector>
 
 emp::web::Document doc{"target"};
 
@@ -14,6 +15,7 @@ class AEAnimator : public emp::web::Animate {
     const double RECT_SIDE = 10;
     const double width{num_w_boxes * RECT_SIDE};
     const double height{num_h_boxes * RECT_SIDE};
+    std::vector<std::string> speciesColors{"red", "blue", "green"};
 
     emp::web::Canvas canvas{width, height, "canvas"};
     emp::Random random{5};
@@ -34,7 +36,6 @@ class AEAnimator : public emp::web::Animate {
         world.Inject(*new_org1);
         world.Inject(*new_org2);
         world.Resize(10, 10);
-        
     }
 
     void DoFrame() override {
@@ -44,8 +45,10 @@ class AEAnimator : public emp::web::Animate {
         for (int x = 0; x < num_w_boxes; x++) {
             for (int y = 0; y < num_h_boxes; y++) {
                 if (world.IsOccupied(org_num)) {
+                    Organism org = world.GetOrg(org_num);
+                    std::string speciesColor = speciesColors[org.GetSpecies()];
                     canvas.Rect(x * RECT_SIDE, y * RECT_SIDE, RECT_SIDE,
-                                RECT_SIDE, "black", "black");
+                                RECT_SIDE, speciesColor, "black");
                 } else {
                     canvas.Rect(x * RECT_SIDE, y * RECT_SIDE, RECT_SIDE,
                                 RECT_SIDE, "white", "black");
