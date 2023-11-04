@@ -8,11 +8,12 @@ class Organism {
   private:
     double points;
     emp::Ptr<emp::Random> random;
+    int species;
 
   public:
-    Organism(emp::Ptr<emp::Random> _random, double _points = 0.0)
+    Organism(emp::Ptr<emp::Random> _random, double _points = 0.0, int _species = 0)
         : points(_points), random(_random) {
-        ;
+        species = _species;
     }
 
     void SetPoints(double _in) {
@@ -21,9 +22,11 @@ class Organism {
     void AddPoints(double _in) {
         points += _in;
     }
-
+    int GetSpecies() {
+        return species;
+    }
     void Process() {
-        std::cout << "Processing" << std::endl; 
+        std::cout << "Processing" << std::endl;
         points += 100;
     }
     emp::Ptr<Organism> CheckReproduction() {

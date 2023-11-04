@@ -27,8 +27,12 @@ class AEAnimator : public emp::web::Animate {
         doc << GetToggleButton("Toggle");
         doc << GetStepButton("Step");
         world.SetPopStruct_Grid(num_w_boxes, num_h_boxes);
-        Organism* new_org = new Organism(&random);
-        world.Inject(*new_org);
+        Organism* new_org0 = new Organism(&random, 0, 0);
+        Organism* new_org1 = new Organism(&random, 0, 1);
+        Organism* new_org2 = new Organism(&random, 0, 2);
+        world.Inject(*new_org0);
+        world.Inject(*new_org1);
+        world.Inject(*new_org2);
         world.Resize(10, 10);
         
     }
